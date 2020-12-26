@@ -5,6 +5,7 @@ const client = new ApolloClient({
   headers: {
     Authorization: `Bearer ${process.env.REACT_APP_GRAPHCMS_ACCESS_TOKEN}`
   },
+  useGETForQueries: true,
   cache: new InMemoryCache()
 });
 
