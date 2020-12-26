@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import RootLayout from './components/layout/RootLayout';
+import Home from './components/views/Home';
+import Exercises from './components/views/Exercises/Exercises';
+
+import Programs from './components/views/Programs/Programs';
+import { useGetPrograms } from './hooks/useGetPrograms';
+import { useGetWorkouts } from './hooks/useGetWorkouts';
+import { useGetSessions } from './hooks/useGetSessions';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RootLayout>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/programs">
+            <Programs
+              nextEndpoint="/workouts"
+              useQuery={useGetPrograms}
+            />
+          </Route>
+          <Route exact path="/workouts/:id">
+            <Programs
+              nextEndpoint="/sessions"
+              useQuery={useGetWorkouts}
+            />
+          </Route>
+          <Route exact path="/sessions/:id">
+            <Programs
+              nextEndpoint="/exercises"
+              useQuery={useGetSessions}
+            />
+          </Route>
+          <Route exact path="/exercises/:id">
+            <Exercises />
+          </Route>
+        </Switch>
+      </Router>
+    </RootLayout>
   );
-}
+};
 
 export default App;
