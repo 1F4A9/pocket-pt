@@ -10,5 +10,5 @@ Then, open `.env.local` and add the missing environment variables.
 
 ### Running
 
-`yarn install`
-`yarn start`
+1. `yarn install`
+2. `yarn start`
