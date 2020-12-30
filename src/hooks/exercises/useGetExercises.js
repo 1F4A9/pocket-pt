@@ -6,6 +6,7 @@ const ALL_EXERCISES = gql`
     exercises(where: $where, orderBy: order_ASC) {
       name
       id
+      slug
       sets {
         weight
         reps

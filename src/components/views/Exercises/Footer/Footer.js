@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { Link, useLocation } from 'react-router-dom';
 
-import NavIcon from './NavIcon';
+import Nav from '../../../common/Nav';
+import { calcExerciseSlideValue } from '../../../../utils/calcExerciseSlideValue';
 
-const StyledFooter = styled.footer`
+const Container = styled.footer`
   position: fixed;
   bottom: 0;
   height: 70px;
-  width: calc(100% - 12px);
-  padding: 0 6px;
+  width: 100%;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   font-size: 32px;
@@ -18,11 +19,30 @@ const StyledFooter = styled.footer`
   align-items: center;
 `;
 
-export default function Footer({ xPos, setXPos, maxLength }) {
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+export default function Footer({ slug, xPos, setXPos, amountOfExercises }) {
+  const { pathname } = useLocation();
+
+  const defaultExercisePath = `/${pathname.split('/').slice(1, 3).join('/')}`;
+
+  const nextNavigationValue = calcExerciseSlideValue(xPos, 'next', amountOfExercises);
+  const prevNavigationValue = calcExerciseSlideValue(xPos, 'prev', amountOfExercises);
+
+  const navs = [
+    { icon: "prev", direction: "prev", navigationValue: prevNavigationValue },
+    { icon: "next", direction: "next", navigationValue: nextNavigationValue },
+  ];
+
   return (
-    <StyledFooter>
-      <NavIcon name="prev" xPos={xPos} setXPos={setXPos} maxLength={maxLength} />
-      <NavIcon name="next" xPos={xPos} setXPos={setXPos} maxLength={maxLength} />
-    </StyledFooter>
+    <Container>
+      {navs.map(({ icon, direction, navigationValue }) => (
+        <StyledLink to={`${defaultExercisePath}/${slug}`} key={direction} >
+          <Nav icon={icon} direction={direction} cbOnClick={() => setXPos(navigationValue)} />
+        </StyledLink>
+      ))}
+    </Container>
   );
 };

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import Loading from '../../common/Loader';
-import Header from './Header';
+import Loading from '../common/Loader';
 
 const Container = styled.main`
   flex-grow: 1;
@@ -45,7 +44,6 @@ export default function Programs({ useQuery, nextEndpoint }) {
 
   return (
     <Container>
-      <Header />
       {data.map(({ name, subtitle, id }) => (
         <StyledLink
           to={`${nextEndpoint}/${id}`}
