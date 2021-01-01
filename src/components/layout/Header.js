@@ -29,20 +29,22 @@ export default function Header() {
   let title = 'PocketPT';
 
   // Exercise view (sets the current exercise as title)
-  let exerciseName = pathname.split('/')[3];
-  if (exerciseName) title = exerciseName;
+  let currentExerciseName = pathname.split('/')[3];
+  if (currentExerciseName) title = currentExerciseName;
 
   // Program, Workout & Session views
   let currentPage = pathname.split('/')[1];
-  if (!exerciseName && currentPage) title = currentPage;
+  if (!currentExerciseName && currentPage) title = currentPage;
 
   title = capitalizeFirstLetter(title);
 
-  if (title === 'Exercises') title = <br />;
+  const goBackwardsFromExerciseValue = history.location.state.goBackwardsFromExerciseValue;
 
   return (
     <Container>
-      <Nav icon="prev" cbOnClick={() => history.goBack()} />
+      <Nav
+        icon="prev"
+        cbOnClick={currentExerciseName ? () => history.go(goBackwardsFromExerciseValue) : () => history.goBack()} />
       <h1>{title}</h1>
     </Container>
   );

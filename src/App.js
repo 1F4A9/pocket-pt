@@ -37,9 +37,6 @@ function App() {
               useQuery={useGetSessions}
             />
           </Route>
-          <Route exact path="/exercises/:id">
-            <Exercises />
-          </Route>
           <Route exact path="/exercises/:id/:slug">
             <Exercises />
           </Route>

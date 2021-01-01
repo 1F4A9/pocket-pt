@@ -42,11 +42,16 @@ export default function Programs({ useQuery, nextEndpoint }) {
 
   if (loading) return <Loading count={4} itemName="programs" />;
 
+  const INITIAL_GO_BACKWARDS_VALUE = -1;
+
   return (
     <Container>
-      {data.map(({ name, subtitle, id }) => (
+      {data.map(({ name, subtitle, id, exercises }) => (
         <StyledLink
-          to={`${nextEndpoint}/${id}`}
+          to={{
+            pathname: `${nextEndpoint}/${id}${exercises ? '/' + exercises[0].slug : ''}`,
+            state: { goBackwardsFromExerciseValue: INITIAL_GO_BACKWARDS_VALUE }
+          }}
           key={id}
         >
           <StyledTitle>{name}</StyledTitle>

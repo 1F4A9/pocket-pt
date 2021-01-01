@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useGetExercises } from '../../../../hooks/exercises/useGetExercises';
 import Footer from '../Footer/Footer';
 import Sets from './Sets/Sets';
+import { useGetExercises } from '../../../../hooks/exercises/useGetExercises';
+import { getNextSlug } from '../../../../utils/reactRouterHelpers';
 
 const Container = styled.div`
   flex-grow: 1;
@@ -33,23 +33,31 @@ const StyledContent = styled.div`
 export default function Exercises() {
   const [xPos, setXPos] = useState(0); // used as props in styles above (state = 100, 200, 300, ...)
   const { data, loading } = useGetExercises();
-  const { pathname } = useLocation();
 
   if (loading) return <p>loading...</p>
 
   const currentExerciseIndex = Math.abs(xPos / 100);
-  const currentExercise = pathname.split('/')[3];
+  const isLastExercise = data.length - 1 === currentExerciseIndex;
+  const amountOfExercises = data.length;
+
+  const nextSlug = getNextSlug(data, currentExerciseIndex, amountOfExercises);
 
   return (
     <Container>
-      {!currentExercise ? <Redirect to={`${pathname}/${data[0].slug}`} /> : null}
       <StyledMask>
         {data.map(({ sets, id }) => (
           <StyledContent key={id} xPos={xPos}>
             <Sets sets={sets} />
           </StyledContent>
         ))}
-        <Footer slug={data[currentExerciseIndex].slug} xPos={xPos} setXPos={setXPos} amountOfExercises={data.length} />
+        <Footer
+          nextSlug={nextSlug}
+          xPos={xPos}
+          setXPos={setXPos}
+          amountOfExercises={amountOfExercises}
+          isLastExercise={isLastExercise}
+          currentExerciseIndex={currentExerciseIndex}
+        />
       </StyledMask>
     </Container>
   );

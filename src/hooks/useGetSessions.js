@@ -7,6 +7,9 @@ const ALL_SESSIONS = gql`
       name
       subtitle
       id
+      exercises(first: 1) {
+        slug
+      }
     }
   }
 `;
