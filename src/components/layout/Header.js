@@ -38,7 +38,11 @@ export default function Header() {
 
   title = capitalizeFirstLetter(title);
 
-  const goBackwardsFromExerciseValue = history.location.state.goBackwardsFromExerciseValue;
+  const routerState = history.location.state;
+  let goBackwardsFromExerciseValue = -1;
+  if (routerState) {
+    goBackwardsFromExerciseValue = history.location.state.goBackwardsFromExerciseValue;
+  };
 
   return (
     <Container>
