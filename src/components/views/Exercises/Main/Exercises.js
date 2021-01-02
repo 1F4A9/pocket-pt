@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Footer from '../Footer/Footer';
 import Sets from './Sets/Sets';
-import { useGetExercises } from '../../../../hooks/exercises/useGetExercises';
+import { useGetExercises } from '../../../../hooks/useGetExercises';
 import { getNextSlug } from '../../../../utils/reactRouterHelpers';
 
 const Container = styled.div`

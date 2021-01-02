@@ -36,7 +36,7 @@ export default function Sets({ sets, unit }) {
             <span>x</span>
             <Weight weight={weight} bodyweight={bodyweight} unit={unit} />
           </StyledContent>
-          <Checkbox completed={completed} />
+          <Checkbox completed={completed} id={id} />
         </Container>
       ))}
     </>
