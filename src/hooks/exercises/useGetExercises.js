@@ -7,6 +7,7 @@ const ALL_EXERCISES = gql`
       name
       id
       slug
+      unit
       sets {
         weight
         reps

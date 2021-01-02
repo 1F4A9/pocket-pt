@@ -45,9 +45,9 @@ export default function Exercises() {
   return (
     <Container>
       <StyledMask>
-        {data.map(({ sets, id }) => (
+        {data.map(({ sets, unit, id }) => (
           <StyledContent key={id} xPos={xPos}>
-            <Sets sets={sets} />
+            <Sets sets={sets} unit={unit} />
           </StyledContent>
         ))}
         <Footer

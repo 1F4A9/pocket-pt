@@ -26,7 +26,7 @@ const StyledContent = styled.div`
   font-size: 2rem;
 `;
 
-export default function Sets({ sets }) {
+export default function Sets({ sets, unit }) {
   return (
     <>
       {sets.map(({ reps, weight, bodyweight, amrap, completed, id }) => (
@@ -34,7 +34,7 @@ export default function Sets({ sets }) {
           <StyledContent>
             <Reps reps={reps} amrap={amrap} />
             <span>x</span>
-            <Weight weight={weight} bodyweight={bodyweight} />
+            <Weight weight={weight} bodyweight={bodyweight} unit={unit} />
           </StyledContent>
           <Checkbox completed={completed} />
         </Container>

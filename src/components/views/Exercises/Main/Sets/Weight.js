@@ -4,10 +4,10 @@ const Container = styled.span`
   color: var(--color-text-primary);
 `;
 
-export default function Weight({ weight, bodyweight }) {
+export default function Weight({ weight, bodyweight, unit }) {
   return (
     <Container>
-      {bodyweight ? 'bw' : weight}
+      {bodyweight ? 'bw' : `${weight} ${unit}`}
     </Container>
   );
 };
