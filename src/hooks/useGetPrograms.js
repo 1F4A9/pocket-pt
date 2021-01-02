@@ -12,6 +12,7 @@ const ALL_PROGRAMS = gql`
 `;
 
 export function useGetPrograms() {
+  // eslint-disable-next-line
   const { id } = useParams();
   const { data, loading } = useQuery(ALL_PROGRAMS);
 
