@@ -1,5 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Footer from '../Footer/Footer';
 import Sets from './Sets/Sets';
@@ -33,8 +35,9 @@ const StyledContent = styled.div`
 export default function Exercises() {
   const [xPos, setXPos] = useState(0); // used as props in styles above (state = 100, 200, 300, ...)
   const { data, loading } = useGetExercises();
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  if (loading) return <p>loading...</p>
+  if (loading || isLoading) return <p>loading...</p>
 
   const currentExerciseIndex = Math.abs(xPos / 100);
   const isLastExercise = data.length - 1 === currentExerciseIndex;
@@ -44,6 +47,7 @@ export default function Exercises() {
 
   return (
     <Container>
+      {!isAuthenticated && <Redirect to="/" />}
       <StyledMask>
         {data.map(({ sets, unit, id }) => (
           <StyledContent key={id} xPos={xPos}>

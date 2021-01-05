@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 
 import { capitalizeFirstLetter } from './../../utils/stringManipulation';
 import Nav from '../common/Nav';
+import Logout from '../auth/Logout';
 
 const Container = styled.header`
   background-color: var(--color-bg-secondary);
@@ -46,9 +47,15 @@ export default function Header() {
 
   return (
     <Container>
-      <Nav
-        icon="prev"
-        cbOnClick={currentExerciseName ? () => history.go(goBackwardsFromExerciseValue) : () => history.goBack()} />
+      {pathname === '/programs' && <Logout />}
+      {pathname === '/' || pathname === '/programs' ? null :
+        (
+          <Nav
+            icon="prev"
+            cbOnClick={currentExerciseName ? () => history.go(goBackwardsFromExerciseValue) : () => history.goBack()}
+          />
+        )
+      }
       <h1>{title}</h1>
     </Container>
   );

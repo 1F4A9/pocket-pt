@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Loading from '../common/Loader';
 
@@ -29,6 +30,7 @@ const StyledLink = styled(Link)`
 const StyledTitle = styled.h2`
   font-size: 2em;
   font-weight: 600;
+  color: var(--color-text-primary);
 `;
 
 const StyledSubtitle = styled.h5`
@@ -39,13 +41,16 @@ const StyledSubtitle = styled.h5`
 
 export default function Programs({ useQuery, nextEndpoint }) {
   const { data, loading } = useQuery();
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  if (loading) return <Loading count={4} itemName="programs" />;
+  if (loading || isLoading) return <Loading count={4} itemName="programs" />;
 
   const INITIAL_GO_BACKWARDS_VALUE = -1;
 
   return (
     <Container>
+      {!isAuthenticated && <Redirect to="/" />}
+      {!data.length && <StyledTitle>No Programs Available</StyledTitle>}
       {data.map(({ name, subtitle, id, exercises }) => (
         <StyledLink
           to={{
